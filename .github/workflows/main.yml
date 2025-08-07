@@ -45,14 +45,16 @@ jobs:
       - name: Prepare project
         shell: bash      
         run: |
-            cp -nrf ./src/* /opt/otobo/
-            sed "s/#VERSION#/${VERSION}/g" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm
+            su otobo -c "cp -nrf ./src/* /opt/otobo/"
+            su otobo -c "ls ."
+            su otobo -c "ls ./src"
+            su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm"
       # build
       - name: Build project
         shell: bash      
         run: |
-             mkdir ./build
-             /opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build
+             su otobo -c "mkdir ./build"
+             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build"
       # release
       - name: Create release
         id: create_release
