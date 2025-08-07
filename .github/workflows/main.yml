@@ -7,8 +7,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    container: rotheross/otobo:latest-11_0
-    entrypoint: [""]
+    container: 
+      image: rotheross/otobo:latest-11_0
+      options: --entrypoint=""
     # OTOBO requires a redis service for build
     services:
       redis: 
