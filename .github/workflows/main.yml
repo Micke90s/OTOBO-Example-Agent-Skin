@@ -27,9 +27,6 @@ jobs:
       # Downloads a copy of the code in your repository before running CI 
       - name: Check out repository code
         uses: actions/checkout@v4.1.0
-        with:
-          fetch-depth: 50
-          lfs: true  
       # Installing OTOBO inside of the container to use the package tool
       - name: Install OTOBO
         run: /bin/bash -c '/opt/otobo_install/entrypoint.sh copy_otobo_next'
