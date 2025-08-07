@@ -31,7 +31,7 @@ jobs:
           set-safe-directory: true
       # Installing OTOBO inside of the container to use the package tool
       - name: Install OTOBO
-        run: /bin/bash -c '/opt/otobo_install/entrypoint.sh copy_otobo_next'
+        run: /opt/otobo_install/entrypoint.sh copy_otobo_next
       # Set VERSION variable from tag
       - name: Get Version
         run: |
@@ -40,13 +40,13 @@ jobs:
       # Copy files & Prepare SOPM file
       - name: Prepare project
         run: |
-             /bin/bash -c 'cp -nrf ./src/* /opt/otobo/'
-             /bin/bash -c 'sed "s/#VERSION#/${VERSION}/g" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm'
+            cp -nrf ./src/* /opt/otobo/
+            sed "s/#VERSION#/${VERSION}/g" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm
       # build
       - name: Build project
         run: |
-             /bin/bash -c 'mkdir ./build'
-             /bin/bash -c '/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build'      
+             mkdir ./build
+             /opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build
       # release
       - name: Create release
         id: create_release
