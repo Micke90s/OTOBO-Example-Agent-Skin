@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: rotheross/otobo:latest-11_0
-      options: --user otobo --entrypoint="" #--command copy_otobo_next
+      options: --entrypoint="" #--command copy_otobo_next
+    env:
+      GIT_STRATEGY: clone
     # OTOBO requires a redis service for build
     services:
       redis: 
@@ -24,10 +26,10 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI 
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.0
         with:
-         clean: false
-         set-safe-directory: false
+          fetch-depth: 50
+          lfs: true  
       # Installing OTOBO inside of the container to use the package tool
       - name: Install OTOBO
         run: /bin/bash -c '/opt/otobo_install/entrypoint.sh copy_otobo_next'
