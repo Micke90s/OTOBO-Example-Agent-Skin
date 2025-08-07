@@ -34,19 +34,23 @@ jobs:
           set-safe-directory: true
       # Installing OTOBO inside of the container to use the package tool
       - name: Install OTOBO
-        run: /bin/bash -c "/opt/otobo_install/entrypoint.sh copy_otobo_next"
+        shell: bash
+        run: /opt/otobo_install/entrypoint.sh copy_otobo_next
       # Set VERSION variable from tag
       - name: Get Version
+        shell: bash      
         run: |
              TAG=${{ github.event.release.tag_name }}
              echo "VERSION=${TAG#v}" >> $GITHUB_ENV      
       # Copy files & Prepare SOPM file
       - name: Prepare project
+        shell: bash      
         run: |
             cp -nrf ./src/* /opt/otobo/
             sed "s/#VERSION#/${VERSION}/g" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm
       # build
       - name: Build project
+        shell: bash      
         run: |
              mkdir ./build
              /opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build
