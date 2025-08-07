@@ -48,13 +48,13 @@ jobs:
             su otobo -c "cp -nrf ./src/* /opt/otobo/"
             su otobo -c "ls ."
             su otobo -c "ls ./src"
-            su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm"
+            su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/ExampleAgentSkin.sopm > /opt/otobo/ExampleAgentSkin.sopm"
       # build
       - name: Build project
         shell: bash      
         run: |
              su otobo -c "mkdir ./build"
-             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build"
+             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentSkin.sopm ./build"
       # release
       - name: Create release
         id: create_release
