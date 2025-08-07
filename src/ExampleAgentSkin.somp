@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otobo_package version="1.0">
+  <Name>ExampleAgentSkin</Name>
+  <Version>#VERSION#</Version>
+  <Framework Minimum='10.0.0'>10.x.x</Framework>
+  <Framework Minimum='11.0.0'>11.x.x</Framework>
+  <Vendor>Example Vendor</Vendor>
+  <URL></URL>
+  <License></License>
+  <Description Lang="en">Example Agent Skin</Description>
+  <Description Lang="de">Example Agent Skin</Description>
+  <BuildHost>?</BuildHost>
+  <BuildDate>?</BuildDate>
+  <Filelist>
+    <!-- Configuration file -->
+    <File Permission="660" Location="Kernel/Config/Files/XML/ExampleAgentSkin.xml" />
+    <!-- Content files (eg. css, images) -->
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.ACL.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.CloudServices.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.CommunicationLog.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.DynamicField.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.GenericInterface.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.GenericInterfaceWebserviceTicketInvoker.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.NotificationEvent.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.PackageManager.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.PerformanceLog.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.PostMasterFilter.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.ProcessManagement.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.Registration.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.SupportDataCollector.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Admin.SystemConfiguration.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.CustomerUser.OpenTicket.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.CustomerUserAddressBook.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Daemon.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Dashboard.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Preferences.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.SortedTree.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.Statistics.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.StatisticsReports.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.TicketHistory.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.TicketMenuModuleCluster.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Agent.TicketProcess.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.AgentTicketQueue.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.AgentTicketService.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.AllocationList.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Animations.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.AppointmentCalendar.Agenda.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.AppointmentCalendar.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.AppointmentCalendar.Manage.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Color.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Default.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Dialog.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Footer.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Form.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Header.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Icons.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.InputFields.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Installer.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Login.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.MigrateFromOTRS.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.OverviewControl.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.OverviewLarge.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.OverviewMedium.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.OverviewSmall.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.PageLayout.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Print.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Reset.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Responsive.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Table.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.TicketDetail.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Tooltip.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.Widget.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/Core.WidgetMenu.css" />
+    <File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/css/DynamicFieldDB.css" />
+    <!--<File Permission="660" Location="var/httpd/htdocs/skins/Agent/ExampleAgentSkin/img/..." />-->
+  </Filelist>
+</otobo_package>

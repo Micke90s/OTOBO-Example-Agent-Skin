@@ -1,0 +1,7 @@
+﻿# IDE-Einstellungen ignorieren 
+/.vs
+
+# The 'default' skin should never be changed 
+/src/var/httpd/htdocs/skins/Agent/default
+# Ignore CSS cache
+/src/var/httpd/htdocs/skins/Agent/**/css-cache

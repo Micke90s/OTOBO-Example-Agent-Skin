@@ -1,0 +1,65 @@
+name: Release
+run-name: Release ${{ github.repository }} - ${{ github.ref }}
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container: rotheross/otobo:latest-11_0
+    entrypoint: [""]
+    # OTOBO requires a redis service for build
+    services:
+      redis: 
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    # Steps for building the SOPM-File
+    steps:
+      # Downloads a copy of the code in your repository before running CI 
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      # Installing OTOBO inside of the container to use the package tool
+      - name: Install OTOBO
+        run: /bin/bash -c '/opt/otobo_install/entrypoint.sh copy_otobo_next'
+      # Set VERSION variable from tag
+      - name: Get Version
+        run: |
+             TAG=${{ github.event.release.tag_name }}
+             echo "VERSION=${TAG#v}" >> $GITHUB_ENV      
+      # Copy files & Prepare SOPM file
+      - name: Prepare project
+        run: |
+             /bin/bash -c 'cp -nrf ./src/* /opt/otobo/'
+             /bin/bash -c 'sed "s/#VERSION#/${VERSION}/g" ./src/ExampleAgentTemplate.sopm > /opt/otobo/ExampleAgentTemplate.sopm'
+      # build
+      - name: Build project
+        run: |
+             /bin/bash -c 'mkdir ./build'
+             /bin/bash -c '/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentTemplate.sopm ./build'      
+      # release
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: /build/ExampleAgentTemplate-${VERSION}.opm
+          asset_name: ExampleAgentTemplate-${VERSION}.opm
+          asset_content_type: application/xml
