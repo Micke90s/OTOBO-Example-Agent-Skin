@@ -33,7 +33,7 @@ jobs:
           set-safe-directory: true
       # Installing OTOBO inside of the container to use the package tool
       - name: Install OTOBO
-        run: /opt/otobo_install/entrypoint.sh copy_otobo_next
+        run: /bin/bash -c "/opt/otobo_install/entrypoint.sh copy_otobo_next"
       # Set VERSION variable from tag
       - name: Get Version
         run: |
