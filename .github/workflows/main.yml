@@ -12,8 +12,8 @@ jobs:
     container: 
       image: rotheross/otobo:latest-11_0
       options: --user 0 --entrypoint="" #--command copy_otobo_next
-    env:
-      GIT_STRATEGY: clone
+#    env:
+#      GIT_STRATEGY: clone
     # OTOBO requires a redis service for build
     services:
       redis: 
