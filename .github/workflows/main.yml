@@ -59,8 +59,8 @@ jobs:
              chmod 666 ./build
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
-             echo ::set-output name=ARTIFACT_PATH::./build/${OPMFILE}
-             echo ::set-output name=ARTIFACT_NAME::${OPMFILE}
+             echo "ARTIFACT_PATH=./build/${OPMFILE}" >> $GITHUB_OUTPUT
+             echo "ARTIFACT_NAME=${OPMFILE}" >> $GITHUB_OUTPUT
       # Release
       - name: Create release
         id: create_release
