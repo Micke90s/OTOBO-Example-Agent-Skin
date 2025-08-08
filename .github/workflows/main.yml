@@ -2,13 +2,15 @@ name: Release
 run-name: Release ${{ github.repository }} - ${{ github.ref }}
 on:
   push:
+    # Strict versioning - OTOBO allows up to four elements while the common Semantic Versioning uses only three (MAJOR.MINOR.PATCH)
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+' 
+      - '^v[0-9]+.[0-9]+.[0-9]+(\.[0-9]+)?$'
 jobs:
   release:
     runs-on: ubuntu-latest
     container: 
       image: rotheross/otobo:latest-11_0
+      # Running as root is required as the checkout will fail with the user otobo
       options: --user 0 --entrypoint ""
     env:
       GIT_STRATEGY: clone
@@ -22,47 +24,44 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    # Steps for building the SOPM-File
+    # Steps for building the OTOBO package
     steps:
-      # Downloads a copy of the code in your repository before running CI 
+      # Downloads a copy of the code before running CI 
       - name: Check out repository code
         uses: actions/checkout@v4.1.0
         with:
           set-safe-directory: true
-      # Installing OTOBO inside of the container to use the package tool
+      # Installing OTOBO inside of the container 
       - name: Install OTOBO
         shell: bash
         run: su otobo -c "/opt/otobo_install/entrypoint.sh copy_otobo_next"
       # Set VERSION variable from tag
-      - name: Get Version
+      - name: Get version
         shell: bash      
         run: |
              TAG=${{ github.ref }}
              VERSION=${TAG#refs/tags/v}
              echo "VERSION=${VERSION}" >> $GITHUB_ENV      
-             echo ${TAG}
-             echo ${VERSION}
-      # Copy files & Prepare SOPM file
+      # Copy files & prepare SOPM file
       - name: Prepare project
         shell: bash      
         run: |
             su otobo -c "cp -nrf ./src/* /opt/otobo/"
             SOPMFILE=$(basename $(ls -t ./src/*.sopm | head -n2 ) )
             echo "SOPMFILE=${SOPMFILE}" >> $GITHUB_ENV 
-            echo ${SOPMFILE}
             su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/${SOPMFILE} > /opt/otobo/${SOPMFILE}"
-      # build
+      # Build
       - name: Build project
         id: build
         shell: bash      
         run: |
              mkdir ./build
-             chmod 777 ./build
+             chmod 666 ./build
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo ::set-output name=ARTIFACT_PATH::./build/${OPMFILE}
              echo ::set-output name=ARTIFACT_NAME::${OPMFILE}
-      # release
+      # Release
       - name: Create release
         id: create_release
         uses: actions/create-release@v1

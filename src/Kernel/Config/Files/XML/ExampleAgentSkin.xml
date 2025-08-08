@@ -8,7 +8,7 @@
         <Item Key="InternalName">ExampleAgentSkin</Item>
         <Item Key="VisibleName" Translatable="1">Example Agent Skin</Item>
         <Item Key="Description" Translatable="1">Example Agent Skin</Item>
-        <Item Key="HomePage"></Item>
+        <Item Key="HomePage">https://github.com/Micke90s/OTOBO-Example-Agent-Skin</Item>
       </Hash>
     </Value>
   </Setting>
