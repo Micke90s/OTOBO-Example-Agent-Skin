@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: rotheross/otobo:latest-11_0
-      options: --user 0 --entrypoint "" #--command copy_otobo_next
+      options: --user 0 --entrypoint ""
     env:
       GIT_STRATEGY: clone
     # OTOBO requires a redis service for build
@@ -38,20 +38,29 @@ jobs:
         shell: bash      
         run: |
              TAG=${{ github.event.release.tag_name }}
-             echo "VERSION=${TAG#v}" >> $GITHUB_ENV      
+             VERSION=${TAG#v}
+             echo "VERSION=${VERSION}" >> $GITHUB_ENV      
+             echo ${TAG}
+             echo ${VERSION}
       # Copy files & Prepare SOPM file
       - name: Prepare project
         shell: bash      
         run: |
             su otobo -c "cp -nrf ./src/* /opt/otobo/"
-            su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/ExampleAgentSkin.sopm > /opt/otobo/ExampleAgentSkin.sopm"
+            SOPMFILE=$(basename $(ls -t ./src/*.sopm | head -n2 ) )
+            echo "SOPMFILE=${SOPMFILE}" >> $GITHUB_ENV 
+            echo ${SOPMFILE}
+            su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/${SOPMFILE} > /opt/otobo/${SOPMFILE}"
       # build
       - name: Build project
         shell: bash      
         run: |
              mkdir ./build
              chmod 777 ./build
-             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/ExampleAgentSkin.sopm ./build"
+             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
+             OPMFILE=$(basename $(ls -t ./src/*.sopm | head -n2 ) )
+             echo "OPMFILE=${OPMFILE}" >> $GITHUB_ENV 
+             echo ${OPMFILE}
       # release
       - name: Create release
         id: create_release
@@ -70,6 +79,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./build/ExampleAgentSkin-${VERSION}.opm
-          asset_name: ExampleAgentSkin-${VERSION}.opm
+          asset_path: ./build/${OPMFILE}.opm
+          asset_name: ${OPMFILE}.opm
           asset_content_type: application/xml
