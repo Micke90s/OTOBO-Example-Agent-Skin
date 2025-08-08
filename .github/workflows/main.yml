@@ -53,14 +53,15 @@ jobs:
             su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/${SOPMFILE} > /opt/otobo/${SOPMFILE}"
       # build
       - name: Build project
+        id: build
         shell: bash      
         run: |
              mkdir ./build
              chmod 777 ./build
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
-             echo "OPMFILE=${OPMFILE}" >> $GITHUB_ENV 
-             echo ${OPMFILE}
+             echo ::set-output name=ARTIFACT_PATH::./build/${OPMFILE}
+             echo ::set-output name=ARTIFACT_NAME::${OPMFILE}
       # release
       - name: Create release
         id: create_release
@@ -80,6 +81,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./build/${OPMFILE}
-          asset_name: ${OPMFILE}
+          asset_path: ${{ steps.build.outputs.ARTIFACT_PATH }}
+          asset_name: ${{ steps.build.outputs.ARTIFACT_NAME }}
           asset_content_type: application/xml
