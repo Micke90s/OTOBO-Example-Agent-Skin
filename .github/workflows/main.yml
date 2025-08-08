@@ -37,8 +37,8 @@ jobs:
       - name: Get Version
         shell: bash      
         run: |
-             TAG=${{ github.ref#refs/tags/v }}
-             VERSION=${TAG#v}
+             TAG=${{ github.ref }}
+             VERSION=${TAG#refs/tags/v}
              echo "VERSION=${VERSION}" >> $GITHUB_ENV      
              echo ${TAG}
              echo ${VERSION}
