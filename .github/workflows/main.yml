@@ -57,7 +57,7 @@ jobs:
         shell: bash      
         run: |
              mkdir ./build
-             chmod 666 ./build
+             chmod 777 ./build
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo "ARTIFACT_PATH=./build/${OPMFILE}" >> $GITHUB_OUTPUT
