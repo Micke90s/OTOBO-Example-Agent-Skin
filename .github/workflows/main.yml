@@ -37,7 +37,7 @@ jobs:
       - name: Get Version
         shell: bash      
         run: |
-             TAG=${{ github.event.release.tag_name }}
+             TAG=${{ github.ref }}
              VERSION=${TAG#v}
              echo "VERSION=${VERSION}" >> $GITHUB_ENV      
              echo ${TAG}
@@ -58,7 +58,7 @@ jobs:
              mkdir ./build
              chmod 777 ./build
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
-             OPMFILE=$(basename $(ls -t ./src/*.sopm | head -n2 ) )
+             OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo "OPMFILE=${OPMFILE}" >> $GITHUB_ENV 
              echo ${OPMFILE}
       # release
@@ -72,6 +72,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+      # Upload the OPM-Package to the created release
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -79,6 +80,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./build/${OPMFILE}.opm
-          asset_name: ${OPMFILE}.opm
+          asset_path: ./build/${OPMFILE}
+          asset_name: ${OPMFILE}
           asset_content_type: application/xml
