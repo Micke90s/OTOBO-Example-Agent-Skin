@@ -43,10 +43,6 @@ jobs:
              TAG=${{ github.ref }}
              VERSION=${TAG#refs/tags/v}
              echo "VERSION=${VERSION}" >> $GITHUB_ENV      
-      # Copy files 
-      #- name: Prepare project
-      #  shell: bash      
-      #  run: su otobo -c "cp -nrf ./src/* /opt/otobo/"
       # Build
       - name: Build project
         id: build
@@ -54,7 +50,6 @@ jobs:
         run: |
              mkdir ./build
              chmod 777 ./build
-             #SOPMFILE=$(basename $(ls -t /opt/otobo/*.sopm | head -n2 ) )
              SOPMFILE=$(ls -t ./src/*.sopm | head -n2 )
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build ${SOPMFILE} ./build --version ${VERSION} --module-directory ./src/"
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
