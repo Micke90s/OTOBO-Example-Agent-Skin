@@ -5,7 +5,7 @@ on:
     # Strict versioning - see OTOBO (./Kernel/System/Console/Command/Dev/Package/Build.pm)
     tags:
       #- 'v[0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}'
-      - 'v\d{1,4}[.]\d{1,4}[.]\d{1,4}'
+      - 'v\d{1,4}.\d{1,4}.\d{1,4}'
 jobs:
   release:
     runs-on: ubuntu-latest
