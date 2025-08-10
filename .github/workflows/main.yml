@@ -2,10 +2,10 @@ name: Release
 run-name: Release ${{ github.repository }} - ${{ github.ref }}
 on:
   push:
-    # Strict versioning - OTOBO allows up to four elements while the common Semantic Versioning uses only three (MAJOR.MINOR.PATCH)
+    # Strict versioning - see OTOBO (./Kernel/System/Console/Command/Dev/Package/Build.pm)
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+.[0-9]+'
+      #- 'v[0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}'
+      - 'v\d{1,4}[.]\d{1,4}[.]\d{1,4}'
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -43,14 +43,11 @@ jobs:
              TAG=${{ github.ref }}
              VERSION=${TAG#refs/tags/v}
              echo "VERSION=${VERSION}" >> $GITHUB_ENV      
-      # Copy files & prepare SOPM file
+      # Copy files 
       - name: Prepare project
         shell: bash      
         run: |
             su otobo -c "cp -nrf ./src/* /opt/otobo/"
-            SOPMFILE=$(basename $(ls -t ./src/*.sopm | head -n2 ) )
-            echo "SOPMFILE=${SOPMFILE}" >> $GITHUB_ENV 
-            su otobo -c "sed \"s/#VERSION#/${VERSION}/g\" ./src/${SOPMFILE} > /opt/otobo/${SOPMFILE}"
       # Build
       - name: Build project
         id: build
@@ -58,7 +55,8 @@ jobs:
         run: |
              mkdir ./build
              chmod 777 ./build
-             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build"
+             SOPMFILE=$(basename $(ls -t /opt/otobo/*.sopm | head -n2 ) )
+             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build /opt/otobo/${SOPMFILE} ./build --version ${VERSION}"
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo "ARTIFACT_PATH=./build/${OPMFILE}" >> $GITHUB_OUTPUT
              echo "ARTIFACT_NAME=${OPMFILE}" >> $GITHUB_OUTPUT

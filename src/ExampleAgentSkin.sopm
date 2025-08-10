@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otobo_package version="1.0">
   <Name>ExampleAgentSkin</Name>
-  <Version>#VERSION#</Version>
+  <Version>?</Version>
   <Framework Minimum='11.0.0'>11.x.x</Framework>
   <Vendor>Example Vendor</Vendor>
   <URL>https://github.com/Micke90s/OTOBO-Example-Agent-Skin</URL>
