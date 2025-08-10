@@ -27,7 +27,7 @@ jobs:
           --health-retries 5
     # Steps for building the OTOBO package
     steps:
-      # Downloads a copy of the code before running CI 
+      # Download a copy of the code
       - name: Check out repository code
         uses: actions/checkout@v4.1.0
         with:
@@ -46,8 +46,7 @@ jobs:
       # Copy files 
       - name: Prepare project
         shell: bash      
-        run: |
-            su otobo -c "cp -nrf ./src/* /opt/otobo/"
+        run: su otobo -c "cp -nrf ./src/* /opt/otobo/"
       # Build
       - name: Build project
         id: build
@@ -78,7 +77,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.build.outputs.ARTIFACT_PATH }}
           asset_name: ${{ steps.build.outputs.ARTIFACT_NAME }}
           asset_content_type: application/xml
