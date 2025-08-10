@@ -55,7 +55,7 @@ jobs:
              mkdir ./build
              chmod 777 ./build
              #SOPMFILE=$(basename $(ls -t /opt/otobo/*.sopm | head -n2 ) )
-             SOPMFILE=$(ls -t /opt/otobo/*.sopm | head -n2 )
+             SOPMFILE=$(ls -t ./src/*.sopm | head -n2 )
              su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build ${SOPMFILE} ./build --version ${VERSION} --module-directory ."
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo "ARTIFACT_PATH=./build/${OPMFILE}" >> $GITHUB_OUTPUT
