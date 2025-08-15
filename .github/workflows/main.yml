@@ -50,8 +50,8 @@ jobs:
         run: |
              mkdir ./build
              chmod 777 ./build
-             SOPMFILE=$(ls -t ./src/*.sopm | head -n2 )
-             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build ${SOPMFILE} ./build --version ${VERSION} --module-directory ./src/"
+             SOPMFILE=$(ls -t ./*.sopm | head -n2 )
+             su otobo -c "/opt/otobo/bin/otobo.Console.pl Dev::Package::Build ${SOPMFILE} ./build --version ${VERSION} --module-directory ."
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo "ARTIFACT_PATH=./build/${OPMFILE}" >> $GITHUB_OUTPUT
              echo "ARTIFACT_NAME=${OPMFILE}" >> $GITHUB_OUTPUT

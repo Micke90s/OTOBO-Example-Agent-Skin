@@ -5,11 +5,11 @@ This project contains a minimal example to generate [OTOBO](https://github.com/R
 The current project contains three component which are required to build a valid agent skin template.
 
 ### Configuration File
-The configuration file `./src/Kernel/Config/Files/XML/ExampleAgentSkin.xml` contains all meta data which are required by OTOBO to determine the 
+The configuration file `./Kernel/Config/Files/XML/ExampleAgentSkin.xml` contains all meta data which are required by OTOBO to determine the 
 type of the plugin. 
 
 ### Data files 
-The data files `./src/var/httpd/htdocs/skins/Agent/ExampleAgentSkin/*` are loaded if the agent enables the skin in the user settings. 
+The data files `./var/httpd/htdocs/skins/Agent/ExampleAgentSkin/*` are loaded if the agent enables the skin in the user settings. 
 It is not required to copy the complete `default` skin, as the `default` skin is always loaded. The 
 
 ### SOPM / Package spec file
