@@ -64,6 +64,7 @@ jobs:
              OPMFILE=$(basename $(ls -t ./build/*.opm | head -n2 ) )
              echo "ARTIFACT_PATH=./build/${OPMFILE}" >> $GITHUB_OUTPUT
              echo "ARTIFACT_NAME=${OPMFILE}" >> $GITHUB_OUTPUT
+             sed -i "s/<BuildHost>yourhost.example.com<\/BuildHost>/<BuildHost>github.com<\/BuildHost>/g" ${OPMFILE}
       # Release
       - name: Create release
         id: create_release
